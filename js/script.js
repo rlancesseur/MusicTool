@@ -5,9 +5,8 @@ const pageGuitare = document.querySelector("#pageGuitare")
 const pageBasse = document.querySelector("#pageBasse")
 const pageMetronome = document.querySelector("#pageMetronome")
 const notes = document.querySelectorAll(".cercle")
-const btnMoins = document.querySelector("#btnMoins")
+const btnStop = document.querySelector("#btnStop")
 const btnplay = document.querySelector("#play")
-const btnPlus = document.querySelector("#btnPlus")
 const inputMetronome = document.querySelector("#inputMetronome")
 inputMetronome.value = 100
 
@@ -32,20 +31,22 @@ iconeMetronome.addEventListener("click", () => {
 notes.forEach(note => {
     note.addEventListener("click", () => {
         const sonNote = note.id
-        const audio = new Audio("assets/son/" + sonNote + ".mp3")
-        audio.play()
+        const audioInstru = new Audio("assets/son/" + sonNote + ".mp3")
+        audioInstru.play()
     })
 })
 
-btnMoins.addEventListener("click", () => {
-    inputMetronome.value --
+const audioMetronome = new Audio("assets/son/metronome.mp3")
+const joueSon = () => {
+    audioMetronome.play()
+}
+let intervalle
+
+btnStop.addEventListener("click", () => {
+    clearInterval(intervalle)
 })
 
-btnPlus.addEventListener("click", () => {
-    inputMetronome.value ++
+btnplay.addEventListener("click", () => {
+    clearInterval(intervalle)
+    intervalle = setInterval(joueSon, 60000 / inputMetronome.value)
 })
-
-//Métronome à finir
-// btnplay.addEventListener("click", () => {
-
-// })
